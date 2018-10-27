@@ -63,21 +63,18 @@
 				this.beforeUpdate = JSON.parse(JSON.stringify(this.dataList[index]))
 			},
 			//编辑内容
-			updataTodo(index){
-				if(!this.dataList[index].content.trim()){
-					//如果当前项的内容为空，则删除此项
-					return this.dataList.splice(index, 1)
-				}
-				if(this.dataList[index].content !== this.beforeUpdate.content) {
-					//若原始数据与当前数据的内容不相同，有改动，将其设为未完成状态
-					//若相同，未改动，保持原样
-					return this.dataList[index].isFinish = false
-				}
+			updateTodo(index){
+				//如果当前项的内容为空，则删除此项
+				if(!this.dataList[index].content.trim())  this.dataList.splice(index, 1)		
+				//若原始数据与当前数据的内容不相同，有改动，将其设为未完成状态
+				//若相同，未改动，保持原样
+				if(this.dataList[index].content !== this.beforeUpdate.content) this.dataList[index].isFinish = false
 				this.$refs.show[index].classList.remove('editing')
 				//优化操作
 				this.beforeUpdate={}
 
 			},
+
 			//按esc键 还原
 			backTodo(index){
 				this.dataList[index].content = this.beforeUpdate.content
